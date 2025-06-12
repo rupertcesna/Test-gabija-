@@ -1,26 +1,508 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="lt">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mokytoja Gabija | Individuali pagalba Jūsų vaikui</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Baziniai stiliai ir kintamieji --- */
+        :root {
+            --primary-color: #0077B6; /* Profesionali mėlyna */
+            --secondary-color: #F7F9FA; /* Šviesus fonas */
+            --text-color: #333333; /* Tamsus tekstas */
+            --heading-font: 'Montserrat', sans-serif;
+            --body-font: 'Lato', sans-serif;
+            --container-width: 1100px;
+        }
+
+        /* --- Bendras stilius --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: #FFFFFF;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--secondary-color);
+        }
+
+        h1, h2, h3 {
+            font-family: var(--heading-font);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        h1 { font-size: 2.8rem; }
+        h2 { font-size: 2.2rem; text-align: center; }
+        h3 { font-size: 1.5rem; }
+
+        p {
+            margin-bottom: 15px;
+            max-width: 700px; /* Geresniam skaitomumui */
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* --- Navigacija --- */
+        .navbar {
+            background: #fff;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* --- Mygtukai --- */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: var(--heading-font);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #005A8D;
+            transform: translateY(-2px);
+        }
+
+        /* --- Pagrindinis (Hero) sekcija --- */
+        #pradzia {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('https://images.unsplash.com/photo-1531346878374-a765a6a37c67?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+        }
+
+        #pradzia h1 {
+            color: #222;
+        }
+        
+        #pradzia p {
+             margin-left: auto;
+             margin-right: auto;
+             font-size: 1.1rem;
+             margin-bottom: 30px;
+        }
+        
+        /* --- Privalumų sekcija --- */
+        .privalumai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .privalumas-item {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .privalumas-item h3 {
+            margin-bottom: 15px;
+        }
+
+        /* --- Apie mane sekcija --- */
+        .apie-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .apie-grid img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        /* --- DUK (FAQ) sekcija --- */
+        .faq-item {
+            border-bottom: 1px solid #ddd;
+            padding: 20px 0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-item h3 {
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        /* --- Blog'o sekcija --- */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .blog-post {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .blog-post-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .blog-post h3 {
+            color: var(--text-color);
+        }
+        
+        .blog-post p {
+            flex-grow: 1;
+        }
+        
+        .blog-post a {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* --- Kontaktų forma --- */
+        #kontaktai .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: flex-start;
+        }
+        
+        .contact-info p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info strong {
+            color: var(--text-color);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: var(--body-font);
+            font-size: 1rem;
+        }
+        
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* --- Poraštė --- */
+        footer {
+            background: var(--text-color);
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        /* --- Adaptyvus dizainas (Mobile) --- */
+        @media(max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+
+            .navbar .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .navbar .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .apie-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .apie-grid p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #kontaktai .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="lt"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Gabija – Privati Mokytoja&lt;/title&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Sveiki! Esu Gabija&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;p&gt;Specializuotas mokymas specialiųjų poreikių turintiems vaikams&lt;/p&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+    <!-- Navigacijos Meniu -->
+    <header class="navbar">
+        <div class="container">
+            <a href="#pradzia" class="logo">Mokytoja Gabija</a>
+            <ul class="nav-links">
+                <li><a href="#privalumai">Privalumai</a></li>
+                <li><a href="#apie-mane">Apie mane</a></li>
+                <li><a href="#paslaugos">Paslaugos</a></li>
+                <li><a href="#duk">DUK</a></li>
+                <li><a href="#blogas">Blogas</a></li>
+                <li><a href="#kontaktai">Kontaktai</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Pagrindinis puslapis -->
+        <section id="pradzia">
+            <div class="container">
+                <h1>Individuali pagalba Jūsų vaikui atrasti mokymosi džiaugsmą</h1>
+                <p>Kiekvienas vaikas yra unikalus ir nusipelnė mokytis taip, kaip jam geriausia. Esu Gabija – specialiųjų poreikių mokytoja, padedanti vaikams, susiduriantiems su disleksijos, ADHD ir kitais mokymosi iššūkiais, įveikti sunkumus ir pasiekti savo potencialą.</p>
+                <a href="#kontaktai" class="btn">Užsiregistruokite nemokamai konsultacijai</a>
+            </div>
+        </section>
+
+        <!-- 2. Kodėl tai naudinga? -->
+        <section id="privalumai">
+            <div class="container">
+                <h2>Kaip individualios pamokos padeda Jūsų vaikui?</h2>
+                <div class="privalumai-grid">
+                    <div class="privalumas-item">
+                        <h3>Pritaikyta mokymosi programa</h3>
+                        <p>Kiekviena pamoka kuriama atsižvelgiant į Jūsų vaiko poreikius, stiprybes ir mokymosi stilių. Randame tai, kas veikia geriausiai būtent jam.</p>
+                    </div>
+                    <div class="privalumas-item">
+                        <h3>Dėmesys vienam mokiniui</h3>
+                        <p>Visas mano dėmesys skiriamas tik Jūsų vaikui. Tai leidžia greičiau pastebėti sunkumus ir iškart suteikti reikiamą pagalbą.</p>
+                    </div>
+                    <div class="privalumas-item">
+                        <h3>Pasitikėjimo savimi auginimas</h3>
+                        <p>Saugioje aplinkoje, kurioje nebaisu klysti, vaikai drąsiau priima iššūkius. Kiekviena maža pergalė stiprina jų pasitikėjimą savimi.</p>
+                    </div>
+                    <div class="privalumas-item">
+                        <h3>Specializuotos strategijos</h3>
+                        <p>Taikau patikrintus metodus, skirtus darbui su disleksija, dėmesio sutelkimo ir aktyvumo sutrikimu (ADHD) bei kitais mokymosi sunkumais.</p>
+                    </div>
+                    <div class="privalumas-item">
+                        <h3>Glaudus ryšys su tėvais</h3>
+                        <p>Nuolat bendradarbiauju su Jumis, dalinuosi vaiko pasiekimais, aptariu iššūkius ir teikiu rekomendacijas, kaip galite padėti vaikui namuose.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Apie mane -->
+        <section id="apie-mane">
+            <div class="container">
+                <div class="apie-grid">
+                    <div>
+                        <!-- Pakeiskite src į nuotraukos URL arba kelią projekte. Čia paliktas pavyzdinis paveikslėlis. -->
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1888&auto=format&fit=crop" alt="Mokytojos Gabijos nuotrauka">
+                    </div>
+                    <div>
+                        <h2>Susipažinkite, aš Gabija</h2>
+                        <p>Esu kvalifikuota specialioji pedagogė, kurios pašaukimas – padėti vaikams įveikti mokymosi kliūtis. Baigiau specialiosios pedagogikos ir logopedijos studijas Vilniaus universitete ir per daugiau nei 8 metus darbo sukaupiau vertingos patirties dirbdama tiek mokykloje, tiek individualiai.</p>
+                        <p><strong>Mano mokymo filosofija</strong> remiasi įsitikinimu, kad mokymasis neturi būti kančia. Mano tikslas – ne tik užpildyti žinių spragas, bet ir parodyti vaikui, kad jis GALI. Kiekviename vaike matau asmenybę su unikaliais talentais, todėl savo darbe vadovaujuosi kantrybe, empatija ir kūrybiškumu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Paslaugos -->
+        <section id="paslaugos">
+            <div class="container" style="text-align: center;">
+                <h2>Kuo galiu padėti?</h2>
+                <p style="margin-left: auto; margin-right: auto;">Teikiu individualias pamokas pradinių ir pagrindinių klasių mokiniams, pritaikydama turinį ir metodus pagal specifinius poreikius.</p>
+                <div class="privalumai-grid">
+                    <div class="privalumas-item">
+                        <h3>Lietuvių kalba</h3>
+                        <p>Skaitymo, rašymo įgūdžių lavinimas, teksto suvokimo gerinimas. Ypatingas dėmesys vaikams su disleksija.</p>
+                    </div>
+                    <div class="privalumas-item">
+                        <h3>Matematika</h3>
+                        <p>Pagrindinių veiksmų įtvirtinimas, tekstinių uždavinių analizė, loginio mąstymo ugdymas.</p>
+                    </div>
+                    <div class="privalumas-item">
+                        <h3>Mokymosi strategijos</h3>
+                        <p>Mokome vaiką mokytis – planuoti laiką, sisteminti informaciją, ruoštis kontroliniams. Ypač naudinga vaikams su ADHD.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. DUK -->
+        <section id="duk">
+            <div class="container">
+                <h2>Atsakymai į Jūsų klausimus</h2>
+                <div class="faq-item">
+                    <h3>Kiek kainuoja pamokos?</h3>
+                    <p>Pamokos kaina priklauso nuo jos trukmės ir užsiėmimų dažnumo. Susisiekite su manimi ir per pirmąją nemokamą konsultaciją aptarsime Jūsų situaciją bei pateiksiu konkretų pasiūlymą.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Kokia vienos pamokos trukmė?</h3>
+                    <p>Dažniausiai pamoka trunka 45 arba 60 minučių, priklausomai nuo vaiko amžiaus ir gebėjimo išlaikyti dėmesį. Kartu parinksime optimaliausią variantą.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Kur vyksta pamokos?</h3>
+                    <p>Pamokos gali vykti mano jaukioje studijoje Vilniuje arba nuotoliniu būdu per Zoom/Google Meet platformas, naudojant interaktyvias priemones.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Ar dirbate vasarą?</h3>
+                    <p>Taip, teikiu paslaugas ir vasaros metu. Tai puikus laikas ramiai ir be streso užpildyti per mokslo metus atsiradusias spragas ar pasiruošti ateinantiems mokslo metams.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Blogas -->
+        <section id="blogas">
+            <div class="container">
+                <h2>Naudingi patarimai tėvams</h2>
+                <div class="blog-grid">
+                    <div class="blog-post">
+                        <div class="blog-post-content">
+                            <h3>5 žaidimai, lavinantys skaitymo įgūdžius</h3>
+                            <p>Mokymasis skaityti neturi būti nuobodus. Atraskite 5 paprastus ir linksmus žaidimus, kuriuos galite žaisti namuose...</p>
+                            <a href="#">Skaityti daugiau &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="blog-post">
+                        <div class="blog-post-content">
+                            <h3>Kaip padėti vaikui su ADHD susikaupti?</h3>
+                            <p>Namų darbų ruoša – tikras iššūkis? Aptariame praktines strategijas: nuo darbo vietos paruošimo iki „pomodoro“ technikos...</p>
+                            <a href="#">Skaityti daugiau &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="blog-post">
+                        <div class="blog-post-content">
+                            <h3>Pasitikėjimas savimi – raktas į sėkmę</h3>
+                            <p>Vaikas, kuris tiki savo jėgomis, nebijo klysti. Kaip tėvų žodžiai ir palaikymas gali tapti tvirtu pamatu sėkmei...</p>
+                            <a href="#">Skaityti daugiau &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Kontaktai -->
+        <section id="kontaktai">
+            <div class="container">
+                <div class="contact-info">
+                    <h2>Susisiekime</h2>
+                    <p>Kilo klausimų ar norite užsiregistruoti nemokamai konsultacijai? Užpildykite formą arba susisiekite su manimi tiesiogiai. Pažadu atsakyti per 24 valandas.</p>
+                    <p><strong>El. paštas:</strong> <a href="mailto:gabija@mokytojai.lt">gabija@mokytojai.lt</a></p>
+                    <p><strong>Telefonas:</strong> <a href="tel:+37061234567">+370 612 34567</a></p>
+                    <p><strong>Vieta:</strong> Vilnius, Lietuva (pamokos gyvai arba nuotoliniu būdu)</p>
+                </div>
+                <!-- Kontaktų forma. Reikalinga serverio dalies logika, kad veiktų siuntimas -->
+                <form class="contact-form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Vardas, Pavardė</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">El. paštas</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Jūsų žinutė</label>
+                        <textarea id="message" name="message" required placeholder="Trumpai aprašykite vaiko amžių ir su kokiais iššūkiais susiduriate..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">Siųsti užklausą</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Poraštė -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Mokytoja Gabija. Visos teisės saugomos.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
