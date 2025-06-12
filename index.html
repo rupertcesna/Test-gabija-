@@ -232,9 +232,10 @@
             flex-grow: 1;
         }
         
-        .blog-post a {
+        .blog-post a.read-more-btn {
             color: var(--primary-color);
             font-weight: 700;
+            margin-top: auto;
         }
 
         /* --- Kontaktų forma --- */
@@ -277,6 +278,11 @@
         .contact-form textarea {
             resize: vertical;
             min-height: 120px;
+        }
+        
+        #form-status {
+            margin-top: 20px;
+            font-weight: bold;
         }
 
         /* --- Poraštė --- */
@@ -442,25 +448,26 @@
             <div class="container">
                 <h2>Naudingi patarimai tėvams</h2>
                 <div class="blog-grid">
+                    <!-- PAKEISTA: Pridėtos tikros nuorodos į pavyzdinius HTML failus -->
                     <div class="blog-post">
                         <div class="blog-post-content">
                             <h3>5 žaidimai, lavinantys skaitymo įgūdžius</h3>
                             <p>Mokymasis skaityti neturi būti nuobodus. Atraskite 5 paprastus ir linksmus žaidimus, kuriuos galite žaisti namuose...</p>
-                            <a href="#">Skaityti daugiau &rarr;</a>
+                            <a href="blog/skaitymo-igudziai.html" class="read-more-btn">Skaityti daugiau &rarr;</a>
                         </div>
                     </div>
                     <div class="blog-post">
                         <div class="blog-post-content">
                             <h3>Kaip padėti vaikui su ADHD susikaupti?</h3>
                             <p>Namų darbų ruoša – tikras iššūkis? Aptariame praktines strategijas: nuo darbo vietos paruošimo iki „pomodoro“ technikos...</p>
-                            <a href="#">Skaityti daugiau &rarr;</a>
+                            <a href="blog/adhd-susikaupimas.html" class="read-more-btn">Skaityti daugiau &rarr;</a>
                         </div>
                     </div>
                     <div class="blog-post">
                         <div class="blog-post-content">
                             <h3>Pasitikėjimas savimi – raktas į sėkmę</h3>
                             <p>Vaikas, kuris tiki savo jėgomis, nebijo klysti. Kaip tėvų žodžiai ir palaikymas gali tapti tvirtu pamatu sėkmei...</p>
-                            <a href="#">Skaityti daugiau &rarr;</a>
+                            <a href="blog/pasitikejimas-savimi.html" class="read-more-btn">Skaityti daugiau &rarr;</a>
                         </div>
                     </div>
                 </div>
@@ -477,8 +484,9 @@
                     <p><strong>Telefonas:</strong> <a href="tel:+37061234567">+370 612 34567</a></p>
                     <p><strong>Vieta:</strong> Vilnius, Lietuva (pamokos gyvai arba nuotoliniu būdu)</p>
                 </div>
-                <!-- Kontaktų forma. Reikalinga serverio dalies logika, kad veiktų siuntimas -->
-                <form class="contact-form" action="#" method="POST">
+                <!-- PAKEISTA: Atnaujinta forma, kad naudotų Formspree paslaugą -->
+                <!-- SVARBU: Pakeiskite "your-unique-code" į savo Formspree kodą! -->
+                <form id="contact-form" class="contact-form" action="https://formspree.io/f/your-unique-code" method="POST">
                     <div class="form-group">
                         <label for="name">Vardas, Pavardė</label>
                         <input type="text" id="name" name="name" required>
@@ -492,6 +500,8 @@
                         <textarea id="message" name="message" required placeholder="Trumpai aprašykite vaiko amžių ir su kokiais iššūkiais susiduriate..."></textarea>
                     </div>
                     <button type="submit" class="btn">Siųsti užklausą</button>
+                    <!-- PRIDĖTA: Elementas formos būsenos pranešimui -->
+                    <p id="form-status"></p>
                 </form>
             </div>
         </section>
@@ -503,6 +513,40 @@
             <p>&copy; 2024 Mokytoja Gabija. Visos teisės saugomos.</p>
         </div>
     </footer>
+
+    <!-- PRIDĖTA: JavaScript kodas formos valdymui -->
+    <script>
+        var form = document.getElementById("contact-form");
+        
+        async function handleSubmit(event) {
+          event.preventDefault();
+          var status = document.getElementById("form-status");
+          var data = new FormData(event.target);
+          fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+          }).then(response => {
+            if (response.ok) {
+              status.innerHTML = "Ačiū! Jūsų žinutė gauta.";
+              form.reset()
+            } else {
+              response.json().then(data => {
+                if (Object.hasOwn(data, 'errors')) {
+                  status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+                } else {
+                  status.innerHTML = "Atsiprašome, įvyko klaida siunčiant žinutę."
+                }
+              })
+            }
+          }).catch(error => {
+            status.innerHTML = "Atsiprašome, įvyko klaida siunčiant žinutę."
+          });
+        }
+        form.addEventListener("submit", handleSubmit)
+    </script>
 
 </body>
 </html>
